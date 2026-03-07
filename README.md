@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Coffee Chat Generator ☕✨
 
-## Getting Started
+オンラインの雑談会（Weekly Coffee Chat）を盛り上げるためのトピックジェネレーターWebアプリケーションです。
+Next.js と Google Gemini API を使用して、楽しくて少し考えを共有したくなるような雑談トピックを生成します。
 
-First, run the development server:
+## 機能 🚀
 
+- **Surprise Me!**: まったくランダムで意外性のある面白いトピックをAIが自動生成します。
+- **カテゴリから選ぶ**: 「最近のニュース」「ITニュース」「グルメ」「もしも話」など、あらかじめ用意されたテーマから選んでAIにトピックを生成させることができます。
+- **自由入力**: 気になる話題を自由に入力して、それに関連した深掘りできるトピックテーマを生成します。
+- **フォールバック機能**: AI APIの制限時などエラーが発生した場合でも、あらかじめ用意された30個の「鉄板雑談テーマ」の中からランダムで出力し、画面が止まるの（気まずい沈黙）を防ぎます。
+
+## 利用技術 🛠️
+
+- **Framework**: Next.js 14+ (App Router)
+- **Language**: TypeScript
+- **Styling**: CSS Modules (Vanilla CSS)
+- **AI**: Google Generative AI (`@google/genai` sdk) using Gemini 2.5 Flash
+- **Fonts**: `@next/font/google` (Capriola, Yomogi)
+- **Animations**: `@lottiefiles/dotlottie-react`
+
+## ローカルでの動かし方 💻
+
+### 前提条件
+- Node.js がインストールされていること
+- Google Gemini API キーを準備していること
+
+### 1. リポジトリのクローン
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/raynya1212/coffee-chat-generator.git
+cd coffee-chat-generator
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. 依存パッケージのインストール
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. 環境変数の設定
+プロジェクトのルートディレクトリに `.env.local` ファイルを作成し、Gemini APIキーを設定します。
+```env
+GEMINI_API_KEY=your_api_key_here
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. 開発サーバーの起動
+```bash
+npm run dev
+```
 
-## Learn More
+ブラウザで `http://localhost:3000` にアクセスして動かしてください。
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Vercel等へのデプロイ
+Vercelに連携してデプロイできます。  
+デプロイの設定（Environment Variables）にて `GEMINI_API_KEY` を必ず追加してください。
