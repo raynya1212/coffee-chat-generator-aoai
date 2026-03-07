@@ -37,9 +37,14 @@ npm install
 ```
 
 ### 3. 環境変数の設定
-プロジェクトのルートディレクトリに `.env.local` ファイルを作成し、Gemini APIキーを設定します。
+プロジェクトのルートディレクトリに `.env.local` ファイルを作成し、Gemini APIキーおよびBasic認証の設定を行います。
 ```env
+# Google Gemini API Key
 GEMINI_API_KEY=your_api_key_here
+
+# Basic Authentication Credentials
+BASIC_AUTH_USER=your_preferred_username
+BASIC_AUTH_PASSWORD=your_preferred_password
 ```
 
 ### 4. 開発サーバーの起動
@@ -51,4 +56,9 @@ npm run dev
 
 ## Vercel等へのデプロイ
 Vercelに連携してデプロイできます。  
-デプロイの設定（Environment Variables）にて `GEMINI_API_KEY` を必ず追加してください。
+デプロイの設定（Environment Variables）にて、以下の変数を必ず追加してください。これを設定しないとBasic認証を通過できません。
+- `GEMINI_API_KEY`
+- `BASIC_AUTH_USER`
+- `BASIC_AUTH_PASSWORD`
+
+また、本プロジェクトは Next.js `layout.tsx` のメタデータにて `noindex` 設定を含んでいるため、デプロイしたURLが検索エンジンにインデックスされることはありません。安心してご利用ください！
