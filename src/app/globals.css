@@ -1,26 +1,46 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-bg: #FDF9F1;
+  --color-text: #4A3F35;
+  --color-primary: #A493D1;
+  --color-primary-hover: #907DC4;
+  --color-secondary: #EADDCD;
+  --color-accent: #D4A373;
+  --color-bubble-bg: #FFFFFF;
+  --color-bubble-border: #A493D1;
+  --border-radius: 20px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-bg);
+  background-image: radial-gradient(var(--color-secondary) 3px, transparent 3px);
+  background-size: 40px 40px;
+  color: var(--color-text);
+  font-family: var(--font-yomogi), sans-serif;
+  font-size: 1.4rem;
+  /* Yomogi can be delicate, so keep a larger base size */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+button,
+input,
+select {
+  font-family: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }

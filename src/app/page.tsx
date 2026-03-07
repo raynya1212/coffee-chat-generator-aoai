@@ -1,65 +1,167 @@
-import Image from "next/image";
+'use client';
+
+import { useState } from 'react';
+import { ChevronDown, Send } from 'lucide-react';
+import styles from './page.module.css';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+
+const TOPICS = [
+  "最近のニュース",
+  "IT ニュース",
+  "映画 /ドラマ / アニメ",
+  "グルメ",
+  "お出かけ",
+  "最近ハマっていること",
+  "リフレッシュ方法",
+  "もしも話"
+];
+
+const FALLBACK_TOPICS = [
+  "もし1億円あったら何に使う？",
+  "今までで一番高かった買い物は？",
+  "子供の頃の夢は何だった？",
+  "今一番行きたい国はどこ？",
+  "初任給で買ったものは？",
+  "人生で一番の失敗談は？",
+  "タイムマシンがあったら過去と未来どっちに行く？",
+  "最近感動して泣いたことは？",
+  "魔法が一つだけ使えるなら何がいい？",
+  "無人島に3つ持っていくなら何？",
+  "最近買ってよかったものは？",
+  "学生時代の部活は何だった？",
+  "今まで経験したアルバイトで一番きつかったのは？",
+  "お気に入りの映画・本は？",
+  "好きな季節とその理由は？",
+  "今日の朝ごはん何食べた？",
+  "自分を動物に例えると何？",
+  "おすすめのストレス解消法は？",
+  "最近見た夢で印象的だったものは？",
+  "生まれ変わるなら男と女どっち？",
+  "好きな言葉・座右の銘は？",
+  "これだけは無理！という苦手なものは？",
+  "カラオケの十八番は？",
+  "幽霊やUFOは信じる？",
+  "もし宝くじで10億円当たったら仕事はどうする？",
+  "好きなYouTuberやインフルエンサーはいる？",
+  "子どもの頃、親に怒られた一番の理由は？",
+  "人生で一番のモテ期はいつだった？",
+  "今までで一番美味しかった食べ物は？",
+  "過去の自分にアドバイスできるならなんて言う？"
+];
 
 export default function Home() {
+  const [topic, setTopic] = useState<string>("最近あった面白かったことは？");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [customInput, setCustomInput] = useState<string>('');
+
+  const generateTopic = async (type: 'random' | 'category' | 'custom', value?: string) => {
+    setIsLoading(true);
+    setTopic("...");
+
+    try {
+      const res = await fetch('/api/generate-topic', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type, value })
+      });
+
+      if (!res.ok) {
+        throw new Error('API request failed');
+      }
+
+      const data = await res.json();
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      setTopic(data.topic);
+    } catch (error) {
+      console.error("Fallaback error handling:", error);
+      const randomFallback = FALLBACK_TOPICS[Math.floor(Math.random() * FALLBACK_TOPICS.length)];
+      setTopic(`【AI混雑中のためピンチヒッター】\n${randomFallback}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Coffee chat time</h1>
+
+      <div className={styles.hero}>
+        <div className={`${styles.speechBubble} ${styles.speechBubbleInner}`}>
+          {isLoading ? (
+            <span className={styles.loadingText}>考え中...</span>
+          ) : (
+            topic
+          )}
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className={styles.catContainer}>
+          <DotLottieReact
+            src="https://lottie.host/5be8dfec-3c1e-4c1f-8d31-e744fa4039e1/5u3jkcx1Qs.lottie"
+            loop
+            autoplay
+            style={{ width: '100%', height: '100%' }}
+          />
         </div>
-      </main>
+      </div>
+
+      <div className={styles.controls}>
+        <button
+          className={styles.button}
+          onClick={() => generateTopic('random')}
+          disabled={isLoading}
+        >
+          Give me a random topic!
+        </button>
+
+        <div className={styles.selectWrapper}>
+          <select
+            className={styles.select}
+            onChange={(e) => {
+              if (e.target.value) {
+                generateTopic('category', e.target.value);
+                e.target.value = ""; // reset after selection
+              }
+            }}
+            disabled={isLoading}
+            defaultValue=""
+          >
+            <option value="" disabled>トピックからえらぶ</option>
+            {TOPICS.map((t) => (
+              <option key={t} value={t}>{t}</option>
+            ))}
+          </select>
+          <ChevronDown className={styles.selectIcon} size={24} />
+        </div>
+
+        <div className={styles.inputGroup}>
+          <input
+            type="text"
+            className={styles.input}
+            placeholder="気になる話題を入力..."
+            value={customInput}
+            onChange={(e) => setCustomInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && customInput.trim()) {
+                generateTopic('custom', customInput.trim());
+              }
+            }}
+            disabled={isLoading}
+          />
+          <button
+            className={styles.submitBtn}
+            onClick={() => {
+              if (customInput.trim()) {
+                generateTopic('custom', customInput.trim());
+              }
+            }}
+            disabled={isLoading || !customInput.trim()}
+          >
+            <Send size={24} />
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
