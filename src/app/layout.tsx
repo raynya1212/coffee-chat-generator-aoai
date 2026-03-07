@@ -19,6 +19,10 @@ const yomogi = Yomogi({
 export const metadata: Metadata = {
   title: 'Coffee chat time',
   description: 'Generate fun and engaging topics for your coffee chats!',
+  robots: {
+    index: false,
+    follow: false,
+  },
 }
 
 export default function RootLayout({
