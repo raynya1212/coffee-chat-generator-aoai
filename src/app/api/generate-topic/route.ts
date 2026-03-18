@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { GoogleGenAI } from '@google/genai';
+import { AzureOpenAI } from 'openai';
 
-// Initialize the Google Gen AI SDK
-// It automatically picks up GEMINI_API_KEY from environment variables
-const ai = new GoogleGenAI({});
+// Initialize the Azure OpenAI client
+const client = new AzureOpenAI({
+    endpoint: process.env.AZURE_OPENAI_ENDPOINT!,
+    apiKey: process.env.AZURE_OPENAI_API_KEY!,
+    apiVersion: '2024-12-01-preview',
+});
 
 export async function POST(req: NextRequest) {
     try {
@@ -23,15 +26,16 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Invalid type' }, { status: 400 });
         }
 
-        const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
-            contents: prompt,
-            config: {
-                temperature: 0.8,
-            }
+        const response = await client.chat.completions.create({
+            model: 'gpt-4.1-mini',
+            max_tokens: 1000,
+            temperature: 0.8,
+            messages: [
+                { role: 'user', content: prompt }
+            ],
         });
 
-        const generatedTopic = response.text?.trim() || "トピックを生成できませんでした。";
+        const generatedTopic = response.choices[0]?.message?.content?.trim() || "トピックを生成できませんでした。";
 
         return NextResponse.json({ topic: generatedTopic });
     } catch (error) {
