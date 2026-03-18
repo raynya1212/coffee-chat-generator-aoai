@@ -133,13 +133,12 @@
     gap: 4px;
     font-family: var(--font-capriola), sans-serif;
     font-size: 0.8rem;
-    color: #8B7355;
-    background: linear-gradient(135deg, rgba(212, 163, 115, 0.12), rgba(212, 163, 115, 0.05));
-    border: 1px solid rgba(212, 163, 115, 0.3);
+    color: #ffffff;
+    background: linear-gradient(135deg, #0078D4, #005A9E);
+    border: 1px solid rgba(0, 120, 212, 0.3);
     border-radius: 20px;
     padding: 4px 14px;
     letter-spacing: 0.02em;
-    backdrop-filter: blur(4px);
 }
 
 .azureLogo {
