@@ -1,15 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { AzureOpenAI } from 'openai';
 
-// Initialize the Azure OpenAI client
-const client = new AzureOpenAI({
-    endpoint: process.env.AZURE_OPENAI_ENDPOINT!,
-    apiKey: process.env.AZURE_OPENAI_API_KEY!,
-    apiVersion: '2024-12-01-preview',
-});
-
 export async function POST(req: NextRequest) {
     try {
+        const client = new AzureOpenAI({
+            endpoint: process.env.AZURE_OPENAI_ENDPOINT!,
+            apiKey: process.env.AZURE_OPENAI_API_KEY!,
+            apiVersion: '2024-12-01-preview',
+        });
+
         const { type, value } = await req.json();
 
         let prompt = `あなたはオンライン雑談会（週1回、30分、IT会社、ジャッジしないオープンスペース）を盛り上げるアシスタントです。
