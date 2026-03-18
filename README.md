@@ -1,7 +1,7 @@
 # Coffee Chat Generator (Azure OpenAI版) ☕✨
 
 オンラインの雑談会（Weekly Coffee Chat）を盛り上げるためのトピックジェネレーターWebアプリケーションです。
-Next.js と Azure OpenAI (GPT-4.1 mini) を使用して、楽しくて少し考えを共有したくなるような雑談トピックを生成します。
+Next.js と Azure OpenAI (GPT-4o mini) を使用して、楽しくて少し考えを共有したくなるような雑談トピックを生成します。
 
 > 💡 Gemini API版は [coffee-chat-generator](https://github.com/raynya1212/coffee-chat-generator) を参照してください。
 
@@ -51,7 +51,7 @@ npm install
 プロジェクトのルートディレクトリに `.env.local` ファイルを作成し、Azure OpenAI およびBasic認証の設定を行います。
 ```env
 # Azure OpenAI
-AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
+AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/openai/v1
 AZURE_OPENAI_API_KEY=your_api_key_here
 
 # Basic Authentication Credentials
