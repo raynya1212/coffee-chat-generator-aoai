@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { AzureOpenAI } from 'openai';
+import OpenAI from 'openai';
 
 export async function POST(req: NextRequest) {
     try {
-        const client = new AzureOpenAI({
-            endpoint: process.env.AZURE_OPENAI_ENDPOINT!,
+        const client = new OpenAI({
+            baseURL: process.env.AZURE_OPENAI_ENDPOINT!,
             apiKey: process.env.AZURE_OPENAI_API_KEY!,
-            apiVersion: '2024-12-01-preview',
         });
 
         const { type, value } = await req.json();
