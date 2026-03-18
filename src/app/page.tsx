@@ -97,12 +97,17 @@ export default function Home() {
         </div>
 
         <div className={styles.catContainer}>
-          <DotLottieReact
-            src="https://lottie.host/5be8dfec-3c1e-4c1f-8d31-e744fa4039e1/5u3jkcx1Qs.lottie"
-            loop
-            autoplay
-            style={{ width: '100%', height: '100%' }}
-          />
+          <div className={styles.azureGlow}>
+            <DotLottieReact
+              src="https://lottie.host/5be8dfec-3c1e-4c1f-8d31-e744fa4039e1/5u3jkcx1Qs.lottie"
+              loop
+              autoplay
+              style={{ width: '100%', height: '100%' }}
+            />
+          </div>
+          <div className={styles.poweredBy}>
+            <span className={styles.azureLogo}>⚡</span> Powered by Azure OpenAI
+          </div>
         </div>
       </div>
 
