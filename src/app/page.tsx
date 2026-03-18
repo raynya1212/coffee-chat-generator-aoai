@@ -85,6 +85,9 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
+      <div className={styles.poweredBy}>
+        <span className={styles.azureLogo}>⚡</span> Powered by Azure OpenAI
+      </div>
       <h1 className={styles.title}>Coffee chat time</h1>
 
       <div className={styles.hero}>
@@ -104,9 +107,6 @@ export default function Home() {
               autoplay
               style={{ width: '100%', height: '100%' }}
             />
-          </div>
-          <div className={styles.poweredBy}>
-            <span className={styles.azureLogo}>⚡</span> Powered by Azure OpenAI
           </div>
         </div>
       </div>

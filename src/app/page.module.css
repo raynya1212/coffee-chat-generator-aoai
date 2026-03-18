@@ -116,15 +116,15 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(0, 120, 212, 0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(212, 163, 115, 0.1) 0%, transparent 70%);
     animation: azurePulse 4s ease-in-out infinite;
     position: relative;
 }
 
 @keyframes azurePulse {
-    0% { filter: drop-shadow(0 0 8px rgba(0, 120, 212, 0.15)); }
-    50% { filter: drop-shadow(0 0 20px rgba(0, 120, 212, 0.3)); }
-    100% { filter: drop-shadow(0 0 8px rgba(0, 120, 212, 0.15)); }
+    0% { filter: drop-shadow(0 0 8px rgba(212, 163, 115, 0.2)); }
+    50% { filter: drop-shadow(0 0 20px rgba(193, 140, 80, 0.35)); }
+    100% { filter: drop-shadow(0 0 8px rgba(212, 163, 115, 0.2)); }
 }
 
 .poweredBy {
@@ -132,19 +132,18 @@
     align-items: center;
     gap: 4px;
     font-family: var(--font-capriola), sans-serif;
-    font-size: 0.85rem;
-    color: #0078D4;
-    background: linear-gradient(135deg, rgba(0, 120, 212, 0.08), rgba(0, 120, 212, 0.04));
-    border: 1px solid rgba(0, 120, 212, 0.2);
+    font-size: 0.8rem;
+    color: #8B7355;
+    background: linear-gradient(135deg, rgba(212, 163, 115, 0.12), rgba(212, 163, 115, 0.05));
+    border: 1px solid rgba(212, 163, 115, 0.3);
     border-radius: 20px;
     padding: 4px 14px;
-    margin-top: -10px;
     letter-spacing: 0.02em;
     backdrop-filter: blur(4px);
 }
 
 .azureLogo {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     animation: sparkle 2s ease-in-out infinite;
 }
 
